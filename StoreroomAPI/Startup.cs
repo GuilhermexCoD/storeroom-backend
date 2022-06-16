@@ -11,9 +11,8 @@ using Storeroom.Domain.Models;
 using Storeroom.Persistence.Context;
 using Storeroom.Persistence.Interfaces;
 using Storeroom.Persistence.Repository;
-using AutoMapper;
-using System;
 using Storeroom.Application.Helpers;
+using System;
 
 namespace StoreroomAPI
 {
@@ -29,9 +28,12 @@ namespace StoreroomAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionString = Configuration.GetConnectionString("MySqlConnection");
+
             services.AddDbContext<StoreroomContext>(
-                context => context.UseSqlite(Configuration.GetConnectionString("Default"))
+                context => context.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
             );
+
             services.AddCors();
             services.AddControllers()
                     .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = 
