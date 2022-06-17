@@ -1,0 +1,39 @@
+version: "3.8"
+
+volumes:
+  StoreroomDb:
+
+networks:
+  mysqlNET:
+  storeroomNET:
+
+services:
+  mysql:
+    image: "mysql:5.7"
+    container_name: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - StoreroomDb:/var/lib/mysql
+    networks:
+      - mysqlNET
+    environment:
+      - MYSQL_PASSWORD=lalaland 
+      - MYSQL_ROOT_PASSWORD=lalaland 
+      - MYSQL_ROOT_HOST=%
+      - bind-address:0.0.0.0 
+  
+  storeroom-api:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: storeroom-api
+    networks:
+      - mysqlNET
+      - storeroomNET
+    ports:
+      - 5000:80
+    environment:
+      - DBHOST=mysql
+    depends_on:
+      - mysql
