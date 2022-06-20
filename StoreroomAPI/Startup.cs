@@ -13,6 +13,7 @@ using Storeroom.Persistence.Interfaces;
 using Storeroom.Persistence.Repository;
 using Storeroom.Application.Helpers;
 using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StoreroomAPI
 {
@@ -31,7 +32,9 @@ namespace StoreroomAPI
             string connectionString = Configuration.GetConnectionString("MySqlConnection");
 
             services.AddDbContext<StoreroomContext>(
-                context => context.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+                context => {
+                    context.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                }
             );
 
             services.AddCors();

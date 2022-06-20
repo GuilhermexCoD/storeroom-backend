@@ -24,6 +24,7 @@ namespace Storeroom.Persistence.Context
             modelBuilder.Entity<User>()
                 .HasOne(u => u.OwnFamily)
                 .WithOne(f => f.Manager);
+
         }
     }
 }
