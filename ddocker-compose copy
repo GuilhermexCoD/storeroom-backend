@@ -1,0 +1,47 @@
+# version: "3.8"
+
+# volumes:
+#   StoreroomDb:
+
+# networks:
+#   mysqlNET:
+#   storeroomNET:
+
+# services:
+#   mysql:
+#     image: "mysql:5.7"
+#     container_name: mysql
+#     ports:
+#       - 3306:3306
+#     volumes:
+#       - "./scripts/storeroomDbScript.sql:/docker-entrypoint-initdb.d/1.sql"
+#       - StoreroomDb:/var/lib/mysql
+#     networks:
+#       - mysqlNET
+#     environment:
+#       - MYSQL_PASSWORD=lalaland 
+#       - MYSQL_ROOT_PASSWORD=lalaland 
+#       - MYSQL_ROOT_HOST=%
+#       - bind-address:0.0.0.0 
+  
+#   storeroom-api:
+#     build:
+#       context: .
+#       dockerfile: dockerfile
+#     container_name: storeroom-api
+#     networks:
+#       - mysqlNET
+#       - storeroomNET
+#     ports:
+#       - 5000:9980
+#       # - 44349:55443
+#     environment:
+#       - DBHOST=mysql
+#       - ASPNETCORE_ENVIRONMENT=Development
+#       # - ASPNETCORE_URLS=https://localhost;http://localhost
+#       # - ASPNETCORE_HTTPS_PORT=44349
+#     volumes:
+#       - ${APPDATA}/Microsoft/UserSecrets/:/root/.microsoft/usersecrets
+#       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
+#     depends_on:
+#       - mysql

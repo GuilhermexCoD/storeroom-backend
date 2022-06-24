@@ -1,6 +1,5 @@
 # https://hub.docker.com/_/microsoft-dotnet
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
-EXPOSE 80
 WORKDIR /app
 
 COPY ../ ./
@@ -15,4 +14,8 @@ RUN dotnet publish -c release -o out --no-restore
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "StoreroomAPI.dll", "--environment=Development"]
+
+# CMD ASPNETCORE_URLS="http://*:$PORT" dotnet StoreroomAPI.dll
+CMD dotnet StoreroomAPI.dll
+# CMD dotnet StoreroomAPI.dll --environment="Development"
+# ENTRYPOINT ["dotnet", "StoreroomAPI.dll", "--environment=Development"]
