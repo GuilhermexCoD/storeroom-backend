@@ -33,11 +33,11 @@ services:
       - mysqlNET
       - storeroomNET
     ports:
-      - 5000:80
+      - 5000:2000
     environment:
       - DBHOST=mysql
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://*
+      - ASPNETCORE_URLS=https://*:2000
       - DOTNET_GENERATE_ASPNET_CERTIFICATE=false
     volumes:
       - $APPDATA\Microsoft\UserSecrets\:/root/.microsoft/usersecrets:ro
